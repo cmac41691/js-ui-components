@@ -1,0 +1,20 @@
+# JS UI Components
+
+This project is a practice assignment based on The Odin Project's *Dynamic User Interface Interactions* lesson.
+
+The goal is to build interactive UI components using **Vanilla JavaScript** — specifically:
+- A **drop-down menu** that toggles visibility on click
+- An **image carousel** that cycles through slides
+
+No external libraries or frameworks are used. This is a foundational exercise in **DOM manipulation** and **event handling**, done with clean HTML, CSS, and JavaScript.
+
+## Features
+
+- Dropdown menu with click toggle
+- Image carousel with manual slide navigation
+- Semantic HTML and modular JS structure
+
+## Status
+
+🛠️ Currently in development as a side project to reinforce frontend fundamentals while building toward backend specialization.
+
