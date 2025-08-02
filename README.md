@@ -18,3 +18,9 @@ No external libraries or frameworks are used. This is a foundational exercise in
 
 🛠️ Currently in development as a side project to reinforce frontend fundamentals while building toward backend specialization.
 
+## Progress Log
+
+- ✅ Dropdown toggle functionality implemented with JS
+- ✅ Minimal dropdown styling applied
+- ✅ Carousel forward/back logic started
+- 🔜 Next: Auto-play function, dot navigation, cleanup/refactor
