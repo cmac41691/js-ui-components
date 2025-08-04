@@ -2,15 +2,16 @@
 
 const toggleBtn= document.getElementById("dropdownToggle");
 const dropdown= document.getElementById("dropdownContent");
+//const toggleArrow = document.getElementById("");
 
-toggleBtn.addEventListener("", () => {
-    dropdown.classList.toggle("visable");
+toggleBtn.addEventListener("click", () => {
+    dropdown.classList.toggle("visible");
 });
-
 
 const galloper = document.querySelectorAll('.slide');
 let index = 0;// Array starts at zero 
 
+// Going to refactor later 
 function prevGalloper(){
     galloper[index].classList.remove('active');
     index--;
@@ -22,7 +23,7 @@ function prevGalloper(){
 }
 
 document.querySelector('.prevBtn').addEventListener('click', e => {
-    prevSlide();
+    prevGalloper();
 });
 
 function nextGalloper(){
@@ -49,7 +50,6 @@ function startCarousel() {
 document.getElementById("startCarousel").addEventListener("click", () => {
 startCarousel();    
 });
-
 
 const dotsContainer = document.querySelector('.dots');
 
