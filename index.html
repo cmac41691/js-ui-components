@@ -11,7 +11,7 @@
   <!-- Dropdown -->
   <div class="dropdown">
     <button id="dropdownToggle">Menu</button>
-    <div id="dropdownContent" class="dropdown-content hidden">
+    <div id="dropdownContent" class="dropdown-content">
       <a href="#">Edit</a>
       <a href="#">Copy</a>
       <a href="#">Delete</a>
@@ -19,21 +19,26 @@
   </div>
 
   <!-- Image Carousel -->
-  <div class="carousel">
-  <div class="slide active">Slide 1</div>
-  <div class="slide">Slide 2</div>
-  <div class="slide">Slide 3</div>
-  <!-- Add more slides as needed -->
-</div>
-<div class="dots"></div> <!-- Where dot indicators will be rendered -->
-<button id="startCarousel" class="start-btn">▶ Start Carousel</button>
-
-    <img id="carouselImage" src="https://via.placeholder.com/400x200" alt="Slide" />
-    <div class="carousel-controls">
-      <button id="prevBtn">Previous</button>
-      <button id="nextBtn">Next</button>
+  <section class="carousel" role="region" aria-roledescription="carousel" aria-label="Demo carousel">
+    <div class="slides">
+      <div class="slide active">Slide 1</div>
+      <div class="slide">Slide 2</div>
+      <div class="slide">Slide 3</div>
+      <!-- Add more slides as needed -->
     </div>
-  </div>
+
+    <div class="carousel-controls">
+      <button id="prevBtn" aria-label="Previous slide">Previous</button>
+      <button id="nextBtn" aria-label="Next slide">Next</button>
+    </div>
+
+    <div class="dots"></div> <!-- Dot indicators rendered by JS -->
+    <button id="startCarousel" class="start-btn">▶ Start Carousel</button>
+  </section>
+
+  <script src="script.js"></script>
+</body>
+</html>
 
   <script src="script.js"></script>
 </body>
