@@ -1,39 +1,63 @@
-// ====== dropdown ======
+// ====== Dropdown ======
 const toggleBtn = document.getElementById('dropdownToggle');
 const dropdown = document.getElementById('dropdownContent');
 
 toggleBtn.addEventListener('click', () => {
-  dropdown.classList.toggle('visible');
+  const open = dropdown.classList.toggle('visible');
+  toggleBtn.setAttribute('aria-expanded', open);
 });
 
-// close dropdown on outside click
+// Close dropdown on outside click
 document.addEventListener('click', (e) => {
   const inside = dropdown.contains(e.target) || toggleBtn.contains(e.target);
-  if (!inside) dropdown.classList.remove('visible');
+  if (!inside) {
+    dropdown.classList.remove('visible');
+    toggleBtn.setAttribute('aria-expanded', 'false');
+  }
 });
 
-// ====== carousel state & elements ======
-const galloper = document.querySelectorAll('.slide'); // no stray spaces
+// ====== Carousel state & elements ======
+const galloper = document.querySelectorAll('.slide');
 let index = 0;
 
 const prevBtn = document.getElementById('prevBtn');
 const nextBtn = document.getElementById('nextBtn');
+const startBtn = document.getElementById('startCarousel');
 const dotsContainer = document.querySelector('.dots');
 const carouselEl = document.querySelector('.carousel');
 
-// ====== helpers ======
-let carouselInterval;
+// ====== Autoplay state/helpers (toggleable) ======
+let carouselInterval = null;
+let isRunning = false;
+
 function startCarousel() {
-  if (carouselInterval) return; // prevent stacking
+  if (isRunning) return;
   carouselInterval = setInterval(nextGalloper, 5000);
+  isRunning = true;
+  startBtn.textContent = '⏸ Pause Carousel';
+  startBtn.setAttribute('aria-label', 'Pause Carousel');
 }
+
+function pauseCarousel() {
+  if (carouselInterval) clearInterval(carouselInterval);
+  carouselInterval = null;
+  isRunning = false;
+  startBtn.textContent = '▶ Start Carousel';
+  startBtn.setAttribute('aria-label', 'Start Carousel');
+}
+
+function toggleCarousel() {
+  if (isRunning) pauseCarousel();
+  else startCarousel();
+}
+
 function resetTimer() {
-  if (!carouselInterval) return;
+  if (!isRunning) return; // only if autoplay is on
   clearInterval(carouselInterval);
   carouselInterval = setInterval(nextGalloper, 5000);
 }
 
-// ====== navigation (keeps dots in sync) ======
+// ====== Navigation (keeps dots in sync) ======
 function prevGalloper() {
   galloper[index].classList.remove('active');
   dotsContainer?.children[index]?.classList.remove('active');
@@ -58,28 +82,30 @@ function nextGalloper() {
   dotsContainer?.children[index]?.setAttribute('aria-current', 'true');
 }
 
-// wire buttons + reset timer on manual actions
+// Wire buttons & reset timer on manual actions
 prevBtn.addEventListener('click', () => { prevGalloper(); resetTimer(); });
 nextBtn.addEventListener('click', () => { nextGalloper(); resetTimer(); });
+startBtn.addEventListener('click', toggleCarousel);
 
-// ====== autoplay controls ======
-document.getElementById('startCarousel').addEventListener('click', startCarousel);
-
-// pause on hover, resume on leave
+// Pause on hover, resume on leave (respect toggle)
 carouselEl.addEventListener('mouseenter', () => {
-  if (carouselInterval) clearInterval(carouselInterval);
+  if (isRunning && carouselInterval) clearInterval(carouselInterval);
 });
 carouselEl.addEventListener('mouseleave', () => {
-  carouselInterval = setInterval(nextGalloper, 5000);
+  if (isRunning) {
+    clearInterval(carouselInterval);
+    carouselInterval = setInterval(nextGalloper, 5000);
+  }
 });
 
-// keyboard nav
+// Keyboard nav
 document.addEventListener('keydown', (e) => {
   if (e.key === 'ArrowRight') { nextGalloper(); resetTimer(); }
   if (e.key === 'ArrowLeft')  { prevGalloper(); resetTimer(); }
+  if (e.key === 'Escape')     { dropdown.classList.remove('visible'); toggleBtn.setAttribute('aria-expanded', 'false'); }
 });
 
-// ====== dots (build + a11y + click handlers) ======
+// ====== Dots (build + a11y + click/keyboard) ======
 galloper.forEach((_, i) => {
   const dot = document.createElement('span');
   dot.classList.add('dot');
