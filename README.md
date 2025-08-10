@@ -24,3 +24,10 @@ No external libraries or frameworks are used. This is a foundational exercise in
 - ✅ Minimal dropdown styling applied
 - ✅ Carousel forward/back logic started
 - 🔜 Next: Auto-play function, dot navigation, cleanup/refactor
+
+## Progress Update (Aug 10, 2025)
+- Implemented dropdown toggle with outside click close.
+- Added fully functional carousel with Previous/Next buttons and dot indicators.
+- Enabled keyboard navigation and hover pause for carousel.
+- Completed QA to confirm menu and carousel navigation work as intended.
+

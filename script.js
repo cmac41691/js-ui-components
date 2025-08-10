@@ -82,6 +82,19 @@ function nextGalloper() {
   dotsContainer?.children[index]?.setAttribute('aria-current', 'true');
 }
 
+// The initalized Button State for the carousel 
+function setInitialButtonState(){
+  isRunning = false;
+  startBtn.disabled = false;
+  startBtn.textContent = 'Start Carousel';
+  startBtn.setAttribute('aria-label', 'Start Carousel');
+}
+
+
+
+
+
+
 // Wire buttons & reset timer on manual actions
 prevBtn.addEventListener('click', () => { prevGalloper(); resetTimer(); });
 nextBtn.addEventListener('click', () => { nextGalloper(); resetTimer(); });
