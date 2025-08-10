@@ -57,45 +57,54 @@ function resetTimer() {
   carouselInterval = setInterval(nextGalloper, 5000);
 }
 
-// ====== Navigation (keeps dots in sync) ======
+// ====== Button state (bounded mode) ======
+function updateButtonStates() {
+  if (!galloper.length) return;
+  prevBtn.disabled = (index === 0);
+  nextBtn.disabled = (index === galloper.length - 1);
+}
+
+// ====== Navigation (bounded: no wrap) ======
 function prevGalloper() {
+  if (index === 0) return; // stop at first
   galloper[index].classList.remove('active');
   dotsContainer?.children[index]?.classList.remove('active');
   dotsContainer?.children[index]?.setAttribute('aria-current', 'false');
 
-  index = (index - 1 + galloper.length) % galloper.length;
+  index = index - 1;
 
   galloper[index].classList.add('active');
   dotsContainer?.children[index]?.classList.add('active');
   dotsContainer?.children[index]?.setAttribute('aria-current', 'true');
+
+  updateButtonStates();
 }
 
 function nextGalloper() {
+  if (index === galloper.length - 1) return; // stop at last
   galloper[index].classList.remove('active');
   dotsContainer?.children[index]?.classList.remove('active');
   dotsContainer?.children[index]?.setAttribute('aria-current', 'false');
 
-  index = (index + 1) % galloper.length;
+  index = index + 1;
 
   galloper[index].classList.add('active');
   dotsContainer?.children[index]?.classList.add('active');
   dotsContainer?.children[index]?.setAttribute('aria-current', 'true');
+
+  updateButtonStates();
 }
 
-// The initalized Button State for the carousel 
-function setInitialButtonState(){
+// ====== Initial Start/Pause button state ======
+function setInitialButtonState() {
   isRunning = false;
   startBtn.disabled = false;
-  startBtn.textContent = 'Start Carousel';
+  startBtn.textContent = '▶ Start Carousel';
   startBtn.setAttribute('aria-label', 'Start Carousel');
 }
+setInitialButtonState();
 
-
-
-
-
-
-// Wire buttons & reset timer on manual actions
+// ====== Wire buttons & reset timer on manual actions ======
 prevBtn.addEventListener('click', () => { prevGalloper(); resetTimer(); });
 nextBtn.addEventListener('click', () => { nextGalloper(); resetTimer(); });
 startBtn.addEventListener('click', toggleCarousel);
@@ -111,7 +120,7 @@ carouselEl.addEventListener('mouseleave', () => {
   }
 });
 
-// Keyboard nav
+// Keyboard nav (bounded: handlers already guard the ends)
 document.addEventListener('keydown', (e) => {
   if (e.key === 'ArrowRight') { nextGalloper(); resetTimer(); }
   if (e.key === 'ArrowLeft')  { prevGalloper(); resetTimer(); }
@@ -142,6 +151,7 @@ galloper.forEach((_, i) => {
     dotsContainer.children[index].classList.add('active');
     dotsContainer.children[index].setAttribute('aria-current', 'true');
 
+    updateButtonStates();
     resetTimer();
   });
 
@@ -155,3 +165,8 @@ galloper.forEach((_, i) => {
 
   dotsContainer.appendChild(dot);
 });
+
+// Set initial Prev/Next disabled state on load
+updateButtonStates();
+
+

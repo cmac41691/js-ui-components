@@ -184,3 +184,7 @@ a {
   cursor: not-allowed;
   filter: grayscale(20%);
 }
+.carousel-controls button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
