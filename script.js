@@ -16,6 +16,14 @@ document.addEventListener('click', (e) => {
   }
 });
 
+// Close dropdown when clicking any menu item
+dropdown.addEventListener('click', (e) => {
+  if (e.target.matches('.dropdown-content a')) {
+    dropdown.classList.remove('visible');
+    toggleBtn.setAttribute('aria-expanded', 'false');
+  }
+});
+
 // ====== Carousel state & elements ======
 const galloper = document.querySelectorAll('.slide');
 let index = 0;
@@ -66,7 +74,11 @@ function updateButtonStates() {
 
 // ====== Navigation (bounded: no wrap) ======
 function prevGalloper() {
-  if (index === 0) return; // stop at first
+  if (index === 0) {
+    // Pause autoplay at the start edge so UI matches state
+    if (isRunning) pauseCarousel();
+    return;
+  }
   galloper[index].classList.remove('active');
   dotsContainer?.children[index]?.classList.remove('active');
   dotsContainer?.children[index]?.setAttribute('aria-current', 'false');
@@ -81,7 +93,11 @@ function prevGalloper() {
 }
 
 function nextGalloper() {
-  if (index === galloper.length - 1) return; // stop at last
+  if (index === galloper.length - 1) {
+    // Pause autoplay at the end edge so UI matches state
+    if (isRunning) pauseCarousel();
+    return;
+  }
   galloper[index].classList.remove('active');
   dotsContainer?.children[index]?.classList.remove('active');
   dotsContainer?.children[index]?.setAttribute('aria-current', 'false');
@@ -128,43 +144,47 @@ document.addEventListener('keydown', (e) => {
 });
 
 // ====== Dots (build + a11y + click/keyboard) ======
-galloper.forEach((_, i) => {
-  const dot = document.createElement('span');
-  dot.classList.add('dot');
-  if (i === index) dot.classList.add('active');
+if (!dotsContainer || !galloper.length) {
+  updateButtonStates(); // still set prev/next correctly
+} else {
+  galloper.forEach((_, i) => {
+    const dot = document.createElement('span');
+    dot.classList.add('dot');
+    if (i === index) dot.classList.add('active');
 
-  // accessibility
-  dot.setAttribute('role', 'button');
-  dot.setAttribute('aria-label', `Go to slide ${i + 1}`);
-  dot.setAttribute('aria-current', i === index ? 'true' : 'false');
-  dot.tabIndex = 0;
+    // accessibility
+    dot.setAttribute('role', 'button');
+    dot.setAttribute('aria-label', `Go to slide ${i + 1}`);
+    dot.setAttribute('aria-current', i === index ? 'true' : 'false');
+    dot.tabIndex = 0;
 
-  // mouse
-  dot.addEventListener('click', () => {
-    galloper[index].classList.remove('active');
-    dotsContainer.children[index].classList.remove('active');
-    dotsContainer.children[index].setAttribute('aria-current', 'false');
+    // mouse
+    dot.addEventListener('click', () => {
+      galloper[index].classList.remove('active');
+      dotsContainer.children[index].classList.remove('active');
+      dotsContainer.children[index].setAttribute('aria-current', 'false');
 
-    index = i;
+      index = i;
 
-    galloper[index].classList.add('active');
-    dotsContainer.children[index].classList.add('active');
-    dotsContainer.children[index].setAttribute('aria-current', 'true');
+      galloper[index].classList.add('active');
+      dotsContainer.children[index].classList.add('active');
+      dotsContainer.children[index].setAttribute('aria-current', 'true');
 
-    updateButtonStates();
-    resetTimer();
+      updateButtonStates();
+      resetTimer();
+    });
+
+    // keyboard activate on Enter/Space
+    dot.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        dot.click();
+      }
+    });
+
+    dotsContainer.appendChild(dot);
   });
-
-  // keyboard activate on Enter/Space
-  dot.addEventListener('keydown', (e) => {
-    if (e.key === 'Enter' || e.key === ' ') {
-      e.preventDefault();
-      dot.click();
-    }
-  });
-
-  dotsContainer.appendChild(dot);
-});
+}
 
 // Set initial Prev/Next disabled state on load
 updateButtonStates();

@@ -10,7 +10,7 @@
 
   <!-- Dropdown -->
   <div class="dropdown">
-    <button id="dropdownToggle">Menu</button>
+    <button id="dropdownToggle" aria-expanded="false" type="button">Menu</button>
     <div id="dropdownContent" class="dropdown-content">
       <a href="#">Edit</a>
       <a href="#">Copy</a>
@@ -20,7 +20,7 @@
 
   <!-- Image Carousel -->
   <section class="carousel" role="region" aria-roledescription="carousel" aria-label="Demo carousel">
-    <div class="slides">
+    <div class="slides" aria-live="polite">
       <div class="slide active">Slide 1</div>
       <div class="slide">Slide 2</div>
       <div class="slide">Slide 3</div>
@@ -28,17 +28,14 @@
     </div>
 
     <div class="carousel-controls">
-      <button id="prevBtn" aria-label="Previous slide">Previous</button>
-      <button id="nextBtn" aria-label="Next slide">Next</button>
+      <button id="prevBtn" aria-label="Previous slide" type="button">Previous</button>
+      <button id="nextBtn" aria-label="Next slide" type="button">Next</button>
     </div>
 
     <div class="dots"></div> <!-- Dot indicators rendered by JS -->
-    <button id="startCarousel" class="start-btn">▶ Start Carousel</button>
-  </section>
 
-  <script src="script.js"></script>
-</body>
-</html>
+    <button id="startCarousel" class="start-btn" type="button">▶ Start Carousel</button>
+  </section>
 
   <script src="script.js"></script>
 </body>
