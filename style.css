@@ -188,3 +188,49 @@ a {
   opacity: 0.5;
   cursor: not-allowed;
 }
+
+
+/* === Tweak pack: layout & a11y polish === */
+
+/* 1) Dots as a centered flex row (so media flex-wrap works) */
+.dots {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 10px; /* keeps your spacing */
+}
+
+/* 2) Carousel controls layout */
+.carousel-controls {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 10px;
+  flex-wrap: wrap;
+}
+
+/* 3) Taller slides + centered content, with reserved space */
+.slides {
+  position: relative;
+  min-height: 260px; /* match .slide height to avoid layout jump */
+}
+
+.slide {
+  display: grid;
+  place-items: center;   /* center text/images inside slide */
+  height: 260px;         /* consistent height */
+  border-radius: 8px;
+  background: #fafafa;   /* subtle backdrop; remove if using images */
+}
+
+/* 4) Unify dot sizing (override earlier 10px rule) */
+.dot { height: 12px; width: 12px; }
+@media (max-width: 480px) {
+  .dot { height: 14px; width: 14px; }  /* easier taps on mobile */
+}
+
+/* 5) Focus style for dropdown toggle (a11y) */
+#dropdownToggle:focus-visible {
+  outline: 2px solid #333;
+  outline-offset: 3px;
+}

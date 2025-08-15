@@ -44,6 +44,7 @@ function startCarousel() {
   isRunning = true;
   startBtn.textContent = '⏸ Pause Carousel';
   startBtn.setAttribute('aria-label', 'Pause Carousel');
+  startBtn.disabled = false; // when enable the user can pause
 }
 
 function pauseCarousel() {
@@ -52,6 +53,7 @@ function pauseCarousel() {
   isRunning = false;
   startBtn.textContent = '▶ Start Carousel';
   startBtn.setAttribute('aria-label', 'Start Carousel');
+  startBtn.disabled = false;  // makes it clickable to start again
 }
 
 function toggleCarousel() {
