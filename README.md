@@ -35,6 +35,20 @@ No external libraries or frameworks are used. This is a foundational exercise in
 - ✅ **Bounded mode** with dynamic button disabling
 - 🔜 Final CSS polish and code cleanup
 
+
+## Screenshot
+
+![UI Components Preview](screenshot.png)
+
+## Run Locally
+- Open `index.html` directly in your browser, **or**
+- Use VS Code **Live Server** for auto-reload
+
+## Demo (optional)
+If deployed via GitHub Pages:
+- Settings → Pages → Deploy from branch (`main`, root)
+- Live URL: _add your link here_
+
 ## Progress Update
 
 **2025-08-10**  
@@ -42,3 +56,10 @@ No external libraries or frameworks are used. This is a foundational exercise in
 - Prev/Next buttons dynamically disable at the first/last slide  
 - Preserved autoplay toggle, dot navigation, and accessibility features  
 - All navigation types (buttons, dots, keyboard) now respect bounded limits  
+
+**2025-08-15**  
+- Added disabled state styling for Prev/Next buttons  
+- Centered dot indicators with flexbox for improved alignment  
+- Updated carousel controls layout with spacing + wrap support for mobile  
+- Increased slide height and centered content to prevent layout shifts  
+- Added subtle background and rounded corners for cleaner visual polish  
