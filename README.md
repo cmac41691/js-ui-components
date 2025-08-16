@@ -38,7 +38,9 @@ No external libraries or frameworks are used. This is a foundational exercise in
 
 ## Screenshot
 
-![UI Components Preview](screenshot.png)
+## Screenshot
+![UI Components Preview](assets/screenshot.png)
+
 
 ## Run Locally
 - Open `index.html` directly in your browser, **or**
