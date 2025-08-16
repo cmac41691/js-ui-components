@@ -36,7 +36,7 @@ No external libraries or frameworks are used. This is a foundational exercise in
 - 🔜 Final CSS polish and code cleanup
 
 
-## Screenshot
+
 
 ## Screenshot
 ![UI Components Preview](assets/screenshot.png)
@@ -46,10 +46,10 @@ No external libraries or frameworks are used. This is a foundational exercise in
 - Open `index.html` directly in your browser, **or**
 - Use VS Code **Live Server** for auto-reload
 
-## Demo (optional)
-If deployed via GitHub Pages:
-- Settings → Pages → Deploy from branch (`main`, root)
-- Live URL: _add your link here_
+
+ ## Live Demo
+[View the project on GitHub Pages](https://cmac41691.github.io/js-ui-components/)
+
 
 ## Progress Update
 
